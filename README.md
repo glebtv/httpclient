@@ -2,9 +2,8 @@
 
 I just try to make it work properly (as a browser would) for my use cases.
 
-[![Build Status](https://travis-ci.org/glebtv/httpclient.png?branch=master)](https://travis-ci.org/glebtv/httpclient)
-[![Gem Version](https://badge.fury.io/rb/glebtv-httpclient.png)](http://badge.fury.io/rb/glebtv-httpclient)
-[![Dependency Status](https://www.versioneye.com/user/projects/534eebc9fe0d0784f30008f6/badge.png)](https://www.versioneye.com/user/projects/534eebc9fe0d0784f30008f6)
+[![Build Status](https://travis-ci.org/glebtv/httpclient.svg?branch=master)](https://travis-ci.org/glebtv/httpclient)
+[![Gem Version](https://badge.fury.io/rb/httpclient.svg)](http://badge.fury.io/rb/httpclient)
 [![Dependency Status](https://www.versioneye.com/user/projects/53e73f2b35080d699f000093/badge.svg?style=flat)](https://www.versioneye.com/user/projects/53e73f2b35080d699f000093)
 
 If you don't like how something works, please send a PR or use original gem: https://github.com/nahi/httpclient
