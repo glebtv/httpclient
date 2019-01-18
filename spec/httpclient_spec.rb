@@ -76,7 +76,7 @@ describe 'HTTPClient' do
   end
   
   it "redirect returns not modified" do
-    timeout(2) do
+    Timeout.timeout(2) do
       @client.get(@srv.u("status"), {:status => 306}, :follow_redirect => true)
     end
   end
@@ -86,7 +86,7 @@ describe 'HTTPClient' do
       begin
         @client.proxy = "http://"
       rescue
-        expect($!.class.to_s).to match(/InvalidURIError/)
+        expect($!.class.to_s).to match(/ArgumentError/)
       end
       @client.proxy = ""
       expect(@client.proxy).to be_nil
@@ -442,7 +442,7 @@ hello"
   end
   
   it "no content" do
-    timeout(2) do
+    Timeout.timeout(2) do
       @client.get(@srv.u("status"), :status => 101)
       @client.get(@srv.u("status"), :status => 204)
       @client.get(@srv.u("status"), :status => 304)

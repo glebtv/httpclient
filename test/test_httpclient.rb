@@ -83,7 +83,7 @@ class TestHTTPClient < ActiveSupport::TestCase
 
   def test_redirect_returns_not_modified
     assert_nothing_raised do
-      timeout(2) do
+      Timeout.timeout(2) do
         @client.get(serverurl + 'status', {:status => 306}, {:follow_redirect => true})
       end
     end
@@ -435,7 +435,7 @@ EOS
 
   def test_no_content
     assert_nothing_raised do
-      timeout(2) do
+      Timeout.timeout(2) do
         @client.get(serverurl + 'status', :status => 101)
         @client.get(serverurl + 'status', :status => 204)
         @client.get(serverurl + 'status', :status => 304)
