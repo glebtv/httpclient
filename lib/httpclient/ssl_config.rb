@@ -422,10 +422,29 @@ class HTTPClient
       nil
     end
 
-    # Use 2048 bit certs trust anchor
+    # Use OS certificates when available, fall back to bundled cacert.pem
     def load_cacerts(cert_store)
-      file = File.join(File.dirname(__FILE__), 'cacert.pem')
-      add_trust_ca_to_store(cert_store, file)
+      if system_certs_available?
+        cert_store.set_default_paths
+      else
+        file = File.join(File.dirname(__FILE__), 'cacert.pem')
+        add_trust_ca_to_store(cert_store, file)
+      end
+    end
+
+    def system_certs_available?
+      return true if ENV['SSL_CERT_FILE'] && File.exist?(ENV['SSL_CERT_FILE'])
+      return true if ENV['SSL_CERT_DIR'] && Dir.exist?(ENV['SSL_CERT_DIR']) && Dir.entries(ENV['SSL_CERT_DIR']).any? { |f| f.end_with?('.pem', '.crt', '.0') }
+
+      if defined?(OpenSSL::X509::DEFAULT_CERT_FILE)
+        return true if File.exist?(OpenSSL::X509::DEFAULT_CERT_FILE) && !File.zero?(OpenSSL::X509::DEFAULT_CERT_FILE)
+      end
+
+      if defined?(OpenSSL::X509::DEFAULT_CERT_DIR)
+        return true if Dir.exist?(OpenSSL::X509::DEFAULT_CERT_DIR) && Dir.entries(OpenSSL::X509::DEFAULT_CERT_DIR).any? { |f| f.end_with?('.pem', '.crt', '.0') }
+      end
+
+      false
     end
   end
 
